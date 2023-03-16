@@ -1,4 +1,4 @@
-from __future__ import  absolute_import
+from __future__ import absolute_import
 import os
 
 import ipdb
@@ -72,8 +72,9 @@ def train(**kwargs):
     best_map = 0
     lr_ = opt.lr
     for epoch in range(opt.epoch):
+        print(f"Training for the {epoch + 1}th epoch now!")
         trainer.reset_meters()
-        for ii, (img, bbox_, label_, scale) in tqdm(enumerate(dataloader)):
+        for ii, (img, bbox_, label_, scale) in tqdm(enumerate(dataloader), total=len(dataloader)):
             scale = at.scalar(scale)
             img, bbox, label = img.cuda().float(), bbox_.cuda(), label_.cuda()
             trainer.train_step(img, bbox, label, scale)
@@ -112,15 +113,16 @@ def train(**kwargs):
                                                   str(trainer.get_meter_data()))
         trainer.vis.log(log_info)
 
+        best_path = trainer.save(best_map=best_map, epoch=epoch, save_optimizer=True)
         if eval_result['map'] > best_map:
             best_map = eval_result['map']
-            best_path = trainer.save(best_map=best_map)
+            best_path = trainer.save(best_map=best_map, epoch="best", save_optimizer=True)
         if epoch == 9:
             trainer.load(best_path)
             trainer.faster_rcnn.scale_lr(opt.lr_decay)
             lr_ = lr_ * opt.lr_decay
 
-        if epoch == 13: 
+        if epoch == 13:
             break
 
 

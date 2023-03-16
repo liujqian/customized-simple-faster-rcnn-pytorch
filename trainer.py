@@ -1,4 +1,4 @@
-from __future__ import  absolute_import
+from __future__ import absolute_import
 import os
 from collections import namedtuple
 import time
@@ -145,7 +145,7 @@ class FasterRCNNTrainer(nn.Module):
         n_sample = roi_cls_loc.shape[0]
         roi_cls_loc = roi_cls_loc.view(n_sample, -1, 4)
         roi_loc = roi_cls_loc[t.arange(0, n_sample).long().cuda(), \
-                              at.totensor(gt_roi_label).long()]
+            at.totensor(gt_roi_label).long()]
         gt_roi_label = at.totensor(gt_roi_label).long()
         gt_roi_loc = at.totensor(gt_roi_loc)
 
@@ -172,7 +172,7 @@ class FasterRCNNTrainer(nn.Module):
         self.update_meters(losses)
         return losses
 
-    def save(self, save_optimizer=False, save_path=None, **kwargs):
+    def save(self, epoch, save_optimizer=False, save_path=None, **kwargs):
         """serialize models include optimizer and other info
         return path where the model-file is stored.
 
@@ -195,8 +195,7 @@ class FasterRCNNTrainer(nn.Module):
             save_dict['optimizer'] = self.optimizer.state_dict()
 
         if save_path is None:
-            timestr = time.strftime('%m%d%H%M')
-            save_path = 'checkpoints/fasterrcnn_%s' % timestr
+            save_path = f'checkpoints/fasterrcnn_epoch{epoch}'
             for k_, v_ in kwargs.items():
                 save_path += '_%s' % v_
 
@@ -254,5 +253,5 @@ def _fast_rcnn_loc_loss(pred_loc, gt_loc, gt_label, sigma):
     in_weight[(gt_label > 0).view(-1, 1).expand_as(in_weight).cuda()] = 1
     loc_loss = _smooth_l1_loss(pred_loc, gt_loc, in_weight.detach(), sigma)
     # Normalize by total number of negtive and positive rois.
-    loc_loss /= ((gt_label >= 0).sum().float()) # ignore gt_label==-1 for rpn_loss
+    loc_loss /= ((gt_label >= 0).sum().float())  # ignore gt_label==-1 for rpn_loss
     return loc_loss
