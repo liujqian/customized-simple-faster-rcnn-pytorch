@@ -58,9 +58,9 @@ class CocoBboxDataset:
         datum = self.data[i]
         bbox = [annotation["bbox"] for annotation in datum["annotations"]]
         label = [annotation["category"] for annotation in datum["annotations"]]
-        difficult = list()
         bbox = np.stack(bbox).astype(np.float32)
         label = np.stack(label).astype(np.int32)
+        difficult = [False] * len(label)
         # When `use_difficult==False`, all elements in `difficult` are False.
         difficult = np.array(difficult, dtype=np.bool).astype(np.uint8)  # PyTorch don't support np.bool
 

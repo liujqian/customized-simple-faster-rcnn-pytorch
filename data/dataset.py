@@ -1,5 +1,5 @@
-from __future__ import  absolute_import
-from __future__ import  division
+from __future__ import absolute_import
+from __future__ import division
 import torch as t
 
 from data.coco_dataset import CocoBboxDataset
@@ -66,7 +66,7 @@ def preprocess(img, min_size=600, max_size=1000):
     scale2 = max_size / max(H, W)
     scale = min(scale1, scale2)
     img = img / 255.
-    img = sktsf.resize(img, (C, H * scale, W * scale), mode='reflect',anti_aliasing=False)
+    img = sktsf.resize(img, (C, H * scale, W * scale), mode='reflect', anti_aliasing=False)
     # both the longer and shorter should be less than
     # max_size and min_size
     if opt.caffe_pretrain:
@@ -102,7 +102,10 @@ class Transform(object):
 class Dataset:
     def __init__(self, opt):
         self.opt = opt
-        self.db = CocoBboxDataset(opt.coco_data_dir)
+        self.db = CocoBboxDataset(
+            opt.coco_data_dir,
+            data_pickle="datasets/webis-webseg-20/train_dataset_data.pickle",
+        )
         self.tsf = Transform(opt.min_size, opt.max_size)
 
     def __getitem__(self, idx):
@@ -116,6 +119,7 @@ class Dataset:
     def __len__(self):
         return len(self.db)
 
+
 class ValidationDataset:
     def __init__(self, opt, split='val', use_difficult=True):
         self.opt = opt
@@ -128,6 +132,7 @@ class ValidationDataset:
 
     def __len__(self):
         return len(self.db)
+
 
 class TestDataset:
     def __init__(self, opt, split='test', use_difficult=True):

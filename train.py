@@ -27,7 +27,7 @@ matplotlib.use('agg')
 def eval(dataloader, faster_rcnn, test_num=10000):
     pred_bboxes, pred_labels, pred_scores = list(), list(), list()
     gt_bboxes, gt_labels, gt_difficults = list(), list(), list()
-    for ii, (imgs, sizes, gt_bboxes_, gt_labels_, gt_difficults_) in tqdm(enumerate(dataloader)):
+    for ii, (imgs, sizes, gt_bboxes_, gt_labels_, gt_difficults_) in tqdm(enumerate(dataloader), total=len(dataloader)):
         sizes = [sizes[0][0].item(), sizes[1][0].item()]
         pred_bboxes_, pred_labels_, pred_scores_ = faster_rcnn.predict(imgs, [sizes])
         gt_bboxes += list(gt_bboxes_.numpy())
@@ -57,11 +57,11 @@ def train(**kwargs):
                                   num_workers=opt.num_workers)
     valset = ValidationDataset(opt)
     validation_dataloader = data_.DataLoader(valset,
-                                       batch_size=1,
-                                       num_workers=opt.test_num_workers,
-                                       shuffle=False, \
-                                       pin_memory=True
-                                       )
+                                             batch_size=1,
+                                             num_workers=opt.test_num_workers,
+                                             shuffle=False, \
+                                             pin_memory=True
+                                             )
     faster_rcnn = FasterRCNNVGG16()
     print('model construct completed')
     trainer = FasterRCNNTrainer(faster_rcnn).cuda()
@@ -113,7 +113,7 @@ def train(**kwargs):
                                                   str(trainer.get_meter_data()))
         trainer.vis.log(log_info)
 
-        best_path = trainer.save(best_map=best_map, epoch=epoch, save_optimizer=True)
+        best_path = trainer.save( epoch=epoch, save_optimizer=True)
         if eval_result['map'] > best_map:
             best_map = eval_result['map']
             best_path = trainer.save(best_map=best_map, epoch="best", save_optimizer=True)
