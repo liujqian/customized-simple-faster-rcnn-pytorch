@@ -7,6 +7,7 @@ from pprint import pprint
 
 class Config:
     # data
+    coco_data_dir = 'datasets/webis-webseg-20'
     voc_data_dir = 'datasets/VOCdevkit/VOC2007'
     min_size = 600  # image resize
     max_size = 1000 # image resize
