@@ -6,7 +6,7 @@ import matplotlib
 from tqdm import tqdm
 
 from utils.config import opt
-from data.dataset import Dataset, TestDataset, inverse_normalize
+from data.dataset import Dataset, TestDataset, inverse_normalize, ValidationDataset
 from model import FasterRCNNVGG16
 from torch.utils import data as data_
 from trainer import FasterRCNNTrainer
@@ -55,8 +55,8 @@ def train(**kwargs):
                                   shuffle=True, \
                                   # pin_memory=True,
                                   num_workers=opt.num_workers)
-    testset = TestDataset(opt)
-    test_dataloader = data_.DataLoader(testset,
+    valset = ValidationDataset(opt)
+    validation_dataloader = data_.DataLoader(valset,
                                        batch_size=1,
                                        num_workers=opt.test_num_workers,
                                        shuffle=False, \
@@ -105,7 +105,7 @@ def train(**kwargs):
                 trainer.vis.text(str(trainer.rpn_cm.value().tolist()), win='rpn_cm')
                 # roi confusion matrix
                 trainer.vis.img('roi_cm', at.totensor(trainer.roi_cm.conf, False).float())
-        eval_result = eval(test_dataloader, faster_rcnn, test_num=opt.test_num)
+        eval_result = eval(validation_dataloader, faster_rcnn, test_num=opt.test_num)
         trainer.vis.plot('test_map', eval_result['map'])
         lr_ = trainer.faster_rcnn.optimizer.param_groups[0]['lr']
         log_info = 'lr:{}, map:{},loss:{}'.format(str(lr_),
