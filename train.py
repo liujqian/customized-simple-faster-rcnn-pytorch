@@ -30,13 +30,13 @@ def eval(dataloader, faster_rcnn, test_num=10000):
     gt_bboxes, gt_labels, gt_difficults = list(), list(), list()
     for ii, (imgs, sizes, gt_bboxes_, gt_labels_, gt_difficults_) in tqdm(enumerate(dataloader), total=len(dataloader)):
         sizes = [sizes[0][0].item(), sizes[1][0].item()]
-        rois ,roi_scores= faster_rcnn.predict(imgs, [sizes])
+        rois, roi_scores = faster_rcnn.predict(imgs, [sizes])
         gt_bboxes += list(gt_bboxes_.numpy())
         gt_labels += list(gt_labels_.numpy())
         gt_difficults += list(gt_difficults_.numpy())
-        pred_bboxes += pred_bboxes_
-        pred_labels += pred_labels_
-        pred_scores += pred_scores_
+        pred_bboxes.append(rois)
+        pred_labels = [0] * len(roi_scores)
+        pred_scores.append(roi_scores)
         if ii == test_num: break
 
     result = eval_detection_voc(

@@ -104,7 +104,7 @@ class Dataset:
         self.opt = opt
         self.db = CocoBboxDataset(
             opt.coco_data_dir,
-            data_pickle="datasets/webis-webseg-20/train_dataset_data.pickle",
+            data_pickle="datasets/webis-webseg-20/test_dataset_data.pickle",
         )
         self.tsf = Transform(opt.min_size, opt.max_size)
 
