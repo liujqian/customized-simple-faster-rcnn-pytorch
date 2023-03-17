@@ -1,4 +1,4 @@
-from __future__ import  absolute_import
+from __future__ import absolute_import
 import torch as t
 from torch import nn
 from torchvision.models import vgg16
@@ -56,11 +56,10 @@ class FasterRCNNVGG16(FasterRCNN):
     feat_stride = 16  # downsample 16x for output of conv5 in vgg16
 
     def __init__(self,
-                 n_fg_class=20,
+                 n_fg_class=1,
                  ratios=[0.5, 1, 2],
                  anchor_scales=[8, 16, 32]
                  ):
-                 
         extractor, classifier = decom_vgg16()
 
         rpn = RegionProposalNetwork(
@@ -113,7 +112,7 @@ class VGG16RoIHead(nn.Module):
         self.n_class = n_class
         self.roi_size = roi_size
         self.spatial_scale = spatial_scale
-        self.roi = RoIPool( (self.roi_size, self.roi_size),self.spatial_scale)
+        self.roi = RoIPool((self.roi_size, self.roi_size), self.spatial_scale)
 
     def forward(self, x, rois, roi_indices):
         """Forward the chain.
@@ -138,7 +137,7 @@ class VGG16RoIHead(nn.Module):
         indices_and_rois = t.cat([roi_indices[:, None], rois], dim=1)
         # NOTE: important: yx->xy
         xy_indices_and_rois = indices_and_rois[:, [0, 2, 1, 4, 3]]
-        indices_and_rois =  xy_indices_and_rois.contiguous()
+        indices_and_rois = xy_indices_and_rois.contiguous()
 
         pool = self.roi(x, indices_and_rois)
         pool = pool.view(pool.size(0), -1)

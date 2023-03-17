@@ -125,8 +125,7 @@ def train(**kwargs):
         if epoch == 13:
             break
 
-
+# one epoch ranges from 8:27-8:34 for the original implementation.
 if __name__ == '__main__':
     import fire
-
     fire.Fire()
