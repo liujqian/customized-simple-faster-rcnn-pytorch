@@ -128,9 +128,9 @@ class FasterRCNN(nn.Module):
         img_size = x.shape[2:]
 
         h = self.extractor(x)
-        rpn_locs, rpn_scores, rois, roi_indices, anchor = \
+        rpn_locs, rpn_scores, rois, roi_indices, anchor, roi_scores = \
             self.rpn(h, img_size, scale)
-        return rois, roi_indices
+        return rois, roi_indices, roi_scores
 
     def use_preset(self, preset):
         """Use the given preset during prediction.
@@ -226,13 +226,14 @@ class FasterRCNN(nn.Module):
         for img, size in zip(prepared_imgs, sizes):
             img = at.totensor(img[None]).float()
             scale = img.shape[3] / size[1]
-            rois, _ = self(img, scale=scale)
+            rois, _, roi_scores = self(img, scale=scale)
             roi = at.totensor(rois) / scale
             original_roi = at.tonumpy(roi).copy()
+            original_roi_scores = at.tonumpy(roi_scores).copy()
 
         self.use_preset('evaluate')
         self.train()
-        return original_roi
+        return original_roi, original_roi_scores
 
     def get_optimizer(self):
         """

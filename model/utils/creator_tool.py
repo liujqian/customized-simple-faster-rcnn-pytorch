@@ -428,4 +428,5 @@ class ProposalCreator:
         if n_post_nms > 0:
             keep = keep[:n_post_nms]
         roi = roi[keep.cpu().numpy()]
-        return roi
+        score = score[keep.cpu().numpy()]
+        return roi,score
