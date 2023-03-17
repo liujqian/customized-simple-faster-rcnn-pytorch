@@ -14,8 +14,9 @@ if __name__ == '__main__':
     img = read_image('datasets/webis-webseg-20/webis-webseg-20-screenshots/009514.png')
     img = t.from_numpy(img)[None]
     faster_rcnn = FasterRCNNVGG16()
+    faster_rcnn.rpn.proposal_layer.nms_thresh = 0.3
     trainer = FasterRCNNTrainer(faster_rcnn).cuda()
-    trainer.load('checkpoints/fasterrcnn_epoch_best_best_map_0.3092034614074795')
+    trainer.load('checkpoints-full-fasterrcnn/fasterrcnn_epoch_best_best_map_0.3092034614074795')
     opt.caffe_pretrain = False  # this model was trained from caffe-pretrained model
     _bboxes, _labels, _scores, original_roi = trainer.faster_rcnn.predict(img, visualize=True)
     bbox_polygon_list = []
