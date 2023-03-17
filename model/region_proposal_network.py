@@ -125,7 +125,8 @@ class RegionProposalNetwork(nn.Module):
                 rpn_fg_scores[i].cpu().data.numpy(),
                 anchor,
                 img_size,
-                scale=scale)
+                scale=scale,
+            )
             batch_index = i * np.ones((len(roi),), dtype=np.int32)
             rois.append(roi)
             roi_indices.append(batch_index)
