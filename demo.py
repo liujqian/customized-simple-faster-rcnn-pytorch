@@ -19,7 +19,7 @@ if __name__ == '__main__':
     opt.caffe_pretrain = False  # this model was trained from caffe-pretrained model
     _bboxes, _labels, _scores, original_roi = trainer.faster_rcnn.predict(img, visualize=True)
     bbox_polygon_list = []
-    for bbox in original_roi[:10]:  # (y_{min}, x_{min}, y_{max}, x_{max})
+    for bbox in _bboxes[0]:  # (y_{min}, x_{min}, y_{max}, x_{max})
         bbox_int = bbox.astype(np.int32)
         left = bbox_int[1]
         top = bbox_int[0]
