@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import os
+import time
 
 import ipdb
 import matplotlib
@@ -71,6 +72,7 @@ def train(**kwargs):
     trainer.vis.text(dataset.db.label_names, win='labels')
     best_map = 0
     lr_ = opt.lr
+    start_time = time.time()
     for epoch in range(opt.epoch):
         print(f"Training for the {epoch + 1}th epoch now!")
         trainer.reset_meters()
@@ -113,7 +115,7 @@ def train(**kwargs):
                                                   str(trainer.get_meter_data()))
         trainer.vis.log(log_info)
 
-        best_path = trainer.save( epoch=epoch, save_optimizer=True)
+        best_path = trainer.save(epoch=epoch, save_optimizer=True)
         if eval_result['map'] > best_map:
             best_map = eval_result['map']
             best_path = trainer.save(best_map=best_map, epoch="best", save_optimizer=True)
@@ -123,9 +125,12 @@ def train(**kwargs):
             lr_ = lr_ * opt.lr_decay
 
         if epoch == 13:
+            print(f"The total time in seconds used for 14 epochs of training is {time.time() - start_time}")
             break
+
 
 # one epoch ranges from 8:27-8:34 for the original implementation.
 if __name__ == '__main__':
     import fire
+
     fire.Fire()
