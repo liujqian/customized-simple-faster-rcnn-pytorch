@@ -5,7 +5,7 @@ import time
 import ipdb
 import matplotlib
 from tqdm import tqdm
-
+import numpy as np
 from utils.config import opt
 from data.dataset import Dataset, TestDataset, inverse_normalize, ValidationDataset
 from model import FasterRCNNVGG16
@@ -35,8 +35,8 @@ def eval(dataloader, faster_rcnn, test_num=10000):
         gt_labels += list(gt_labels_.numpy())
         gt_difficults += list(gt_difficults_.numpy())
         pred_bboxes.append(rois)
-        pred_labels = [0] * len(roi_scores)
         pred_scores.append(roi_scores)
+        pred_labels = [np.zeros(x.shape) for x in pred_scores]
         if ii == test_num: break
 
     result = eval_detection_voc(
