@@ -50,12 +50,12 @@ if __name__ == '__main__':
         out_obj = dict(
             height=img.shape[2],
             width=img.shape[3],
-            id="009514",
+            id=img_id,
             segmentations=dict(
                 faster_rcnn_rpn_only_bboxes=bbox_polygon_list,
             ),
         )
         with open(f"inferences/rpn-only/screenshots/{img_id}.json", "w") as handle:
             json.dump(out_obj, handle)
-        # The average inference time is 0.07559035852622081
-        print(f"The average inference time is {sum(inference_times) / len(inference_times)}")
+        # The average inference time is 0.07484022870447964
+    print(f"The average inference time is {sum(inference_times) / len(inference_times)}")
