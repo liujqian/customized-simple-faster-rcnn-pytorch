@@ -265,7 +265,7 @@ class FasterRCNN(nn.Module):
 
         self.use_preset('evaluate')
         self.train()
-        return bboxes, labels, scores, original_roi
+        return bboxes, labels, scores
 
     def get_optimizer(self):
         """

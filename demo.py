@@ -18,7 +18,7 @@ if __name__ == '__main__':
     trainer = FasterRCNNTrainer(faster_rcnn).cuda()
     trainer.load('checkpoints-full-fasterrcnn/fasterrcnn_epoch_best_best_map_0.3092034614074795')
     opt.caffe_pretrain = False  # this model was trained from caffe-pretrained model
-    _bboxes, _labels, _scores, original_roi = trainer.faster_rcnn.predict(img, visualize=True)
+    _bboxes, _labels, _scores = trainer.faster_rcnn.predict(img, visualize=True)
     bbox_polygon_list = []
     for bbox in _bboxes[0]:  # (y_{min}, x_{min}, y_{max}, x_{max})
         bbox_int = bbox.astype(np.int32)
