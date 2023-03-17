@@ -1,0 +1,96 @@
+======user config========
+{'caffe_pretrain': False,
+ 'caffe_pretrain_path': 'checkpoints/vgg16_caffe.pth',
+ 'coco_data_dir': 'datasets/webis-webseg-20',
+ 'data': 'voc',
+ 'debug_file': '/tmp/debugf',
+ 'env': 'fasterrcnn',
+ 'epoch': 14,
+ 'load_path': None,
+ 'lr': 0.001,
+ 'lr_decay': 0.1,
+ 'max_size': 1000,
+ 'min_size': 600,
+ 'num_workers': 8,
+ 'plot_every': 100,
+ 'port': 8097,
+ 'pretrained_model': 'vgg16',
+ 'roi_sigma': 1.0,
+ 'rpn_sigma': 3.0,
+ 'test_num': 10000,
+ 'test_num_workers': 8,
+ 'use_adam': False,
+ 'use_chainer': False,
+ 'use_drop': False,
+ 'voc_data_dir': 'datasets/VOCdevkit/VOC2007',
+ 'weight_decay': 0.0005}
+==========end============
+Starting to build a dataset object from the coco annotations!
+Finished building a dataset object from the coco annotations! Used 0.2491450309753418 seconds.
+load data
+Starting to build a dataset object from the coco annotations!
+Finished building a dataset object from the coco annotations! Used 0.14262151718139648 seconds.
+/home/liujqian/anaconda3/lib/python3.9/site-packages/torchvision/models/_utils.py:135: UserWarning: Using 'weights' as positional parameter(s) is deprecated since 0.13 and may be removed in the future. Please use keyword parameter(s) instead.
+  warnings.warn(
+/home/liujqian/anaconda3/lib/python3.9/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG16_Weights.IMAGENET1K_V1`. You can also use `weights=VGG16_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Setting up a new session...
+Without the incoming socket you cannot receive events from the server or register event handlers to your Visdom client.
+model construct completed
+Training for the 1th epoch now!
+100%|██████████| 7646/7646 [06:39<00:00, 19.13it/s]
+100%|██████████| 422/422 [00:16<00:00, 25.60it/s]
+The mAP after the 1th epoch is 0.0290728195051299! The mAP so far is 0!
+Training for the 2th epoch now!
+100%|██████████| 7646/7646 [08:06<00:00, 15.70it/s]
+100%|██████████| 422/422 [00:18<00:00, 22.76it/s]
+The mAP after the 2th epoch is 0.047799371984466404! The mAP so far is 0.0290728195051299!
+Training for the 3th epoch now!
+100%|██████████| 7646/7646 [07:28<00:00, 17.03it/s]
+100%|██████████| 422/422 [00:18<00:00, 23.41it/s]
+The mAP after the 3th epoch is 0.06569999688116944! The mAP so far is 0.047799371984466404!
+Training for the 4th epoch now!
+100%|██████████| 7646/7646 [07:41<00:00, 16.56it/s]
+100%|██████████| 422/422 [00:17<00:00, 23.66it/s]
+The mAP after the 4th epoch is 0.037736053027607526! The mAP so far is 0.06569999688116944!
+Training for the 5th epoch now!
+100%|██████████| 7646/7646 [07:24<00:00, 17.21it/s]
+100%|██████████| 422/422 [00:17<00:00, 24.19it/s]
+The mAP after the 5th epoch is 0.04723949038525145! The mAP so far is 0.06569999688116944!
+Training for the 6th epoch now!
+100%|██████████| 7646/7646 [07:18<00:00, 17.42it/s]
+100%|██████████| 422/422 [00:16<00:00, 25.41it/s]
+The mAP after the 6th epoch is 0.05678052140084362! The mAP so far is 0.06569999688116944!
+Training for the 7th epoch now!
+100%|██████████| 7646/7646 [07:16<00:00, 17.53it/s]
+100%|██████████| 422/422 [00:16<00:00, 25.39it/s]
+The mAP after the 7th epoch is 0.05795213419959541! The mAP so far is 0.06569999688116944!
+Training for the 8th epoch now!
+100%|██████████| 7646/7646 [07:18<00:00, 17.43it/s]
+100%|██████████| 422/422 [00:16<00:00, 26.22it/s]
+The mAP after the 8th epoch is 0.08787573633516536! The mAP so far is 0.06569999688116944!
+Training for the 9th epoch now!
+100%|██████████| 7646/7646 [07:24<00:00, 17.21it/s]
+100%|██████████| 422/422 [00:16<00:00, 25.27it/s]
+The mAP after the 9th epoch is 0.07685472666312815! The mAP so far is 0.08787573633516536!
+Training for the 10th epoch now!
+100%|██████████| 7646/7646 [07:18<00:00, 17.44it/s]
+100%|██████████| 422/422 [00:16<00:00, 25.80it/s]
+The mAP after the 10th epoch is 0.12418639824658032! The mAP so far is 0.08787573633516536!
+Training for the 11th epoch now!
+100%|██████████| 7646/7646 [07:33<00:00, 16.86it/s]
+100%|██████████| 422/422 [00:16<00:00, 25.21it/s]
+The mAP after the 11th epoch is 0.1300708875355102! The mAP so far is 0.12418639824658032!
+Training for the 12th epoch now!
+100%|██████████| 7646/7646 [07:20<00:00, 17.35it/s]
+100%|██████████| 422/422 [00:16<00:00, 25.22it/s]
+The mAP after the 12th epoch is 0.13068130595527067! The mAP so far is 0.1300708875355102!
+Training for the 13th epoch now!
+100%|██████████| 7646/7646 [07:20<00:00, 17.36it/s]
+100%|██████████| 422/422 [00:17<00:00, 24.45it/s]
+The mAP after the 13th epoch is 0.12974907789898385! The mAP so far is 0.13068130595527067!
+Training for the 14th epoch now!
+100%|██████████| 7646/7646 [07:22<00:00, 17.28it/s]
+100%|██████████| 422/422 [00:16<00:00, 25.34it/s]
+The mAP after the 14th epoch is 0.13023486541852755! The mAP so far is 0.13068130595527067!
+The total time in seconds used for 14 epochs of training is 6463.309430837631

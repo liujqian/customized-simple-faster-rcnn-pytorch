@@ -16,11 +16,11 @@ if __name__ == '__main__':
     faster_rcnn = FasterRCNNVGG16()
     faster_rcnn.rpn.proposal_layer.nms_thresh = 0.3
     trainer = FasterRCNNTrainer(faster_rcnn).cuda()
-    trainer.load('checkpoints/fasterrcnn_epoch_best_best_map_0.3092034614074795')
+    trainer.load('checkpoints-rpn-only/fasterrcnn_epoch_best_best_map_0.13068130595527067')
     opt.caffe_pretrain = False  # this model was trained from caffe-pretrained model
-    _bboxes, _labels, _scores, original_roi = trainer.faster_rcnn.predict(img, visualize=True)
+    original_roi,roi_scores = trainer.faster_rcnn.predict(img, visualize=True)
     bbox_polygon_list = []
-    for bbox in original_roi[:10]:  # (y_{min}, x_{min}, y_{max}, x_{max})
+    for bbox in original_roi[:20]:  # (y_{min}, x_{min}, y_{max}, x_{max})
         bbox_int = bbox.astype(np.int32)
         left = bbox_int[1]
         top = bbox_int[0]
