@@ -15,11 +15,11 @@ if __name__ == '__main__':
     img = t.from_numpy(img)[None]
     faster_rcnn = FasterRCNNVGG16()
     trainer = FasterRCNNTrainer(faster_rcnn).cuda()
-    trainer.load('checkpoints/fasterrcnn_epoch_best_best_map_0.3082922853125881')
+    trainer.load('checkpoints/fasterrcnn_epoch_best_best_map_0.3092034614074795')
     opt.caffe_pretrain = False  # this model was trained from caffe-pretrained model
-    _bboxes, _labels, _scores = trainer.faster_rcnn.predict(img, visualize=True)
+    _bboxes, _labels, _scores, original_roi = trainer.faster_rcnn.predict(img, visualize=True)
     bbox_polygon_list = []
-    for bbox in _bboxes[0]:  # (y_{min}, x_{min}, y_{max}, x_{max})
+    for bbox in original_roi[:10]:  # (y_{min}, x_{min}, y_{max}, x_{max})
         bbox_int = bbox.astype(np.int32)
         left = bbox_int[1]
         top = bbox_int[0]
@@ -46,5 +46,5 @@ if __name__ == '__main__':
             mmdetection_bboxes=bbox_polygon_list,
         ),
     )
-    with open("temp/009514_bboxes.json", "w") as handle:
+    with open("temp/009514_rois.json", "w") as handle:
         json.dump(out_obj, handle)

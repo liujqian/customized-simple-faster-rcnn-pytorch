@@ -237,7 +237,7 @@ class FasterRCNN(nn.Module):
             roi_score = roi_scores.data
             roi_cls_loc = roi_cls_loc.data
             roi = at.totensor(rois) / scale
-
+            original_roi = at.tonumpy(roi).copy()
             # Convert predictions to bounding boxes in image coordinates.
             # Bounding boxes are scaled to the scale of the input images.
             mean = t.Tensor(self.loc_normalize_mean).cuda(). \
@@ -265,7 +265,7 @@ class FasterRCNN(nn.Module):
 
         self.use_preset('evaluate')
         self.train()
-        return bboxes, labels, scores
+        return bboxes, labels, scores, original_roi
 
     def get_optimizer(self):
         """
