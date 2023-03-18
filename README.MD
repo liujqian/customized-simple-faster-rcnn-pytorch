@@ -1,3 +1,12 @@
+```python
+'''
+This repository is adapted from Yun Chen's Faster RCNN implementation, which is given in this repository:
+https://github.com/chenyuntc/simple-faster-rcnn-pytorch.
+I have made several changes to the original implementation, including but not limited adding a new Coco-based dataloader,
+changing the inference script, adding an RPN only implementation and changing the anchor base sizes.
+'''
+```
+
 # A Simple and Fast Implementation of Faster R-CNN
 
 ## 1. Introduction
