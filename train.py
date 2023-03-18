@@ -125,6 +125,7 @@ def train(**kwargs):
             lr_ = lr_ * opt.lr_decay
 
         if epoch == 13:
+            #The total time in seconds used for 14 epochs of training is 7789.965904712677
             print(f"The total time in seconds used for 14 epochs of training is {time.time() - start_time}")
             break
 
