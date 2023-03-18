@@ -125,7 +125,8 @@ def train(**kwargs):
             lr_ = lr_ * opt.lr_decay
 
         if epoch == 13:
-            #The total time in seconds used for 14 epochs of training is 7789.965904712677
+            #The total time in seconds used for 14 epochs of training is 7789.965904712677 for the original implementation
+            #The total time in seconds used for 14 epochs of training is 7330.058866739273 for the increased anchor count
             print(f"The total time in seconds used for 14 epochs of training is {time.time() - start_time}")
             break
 
@@ -133,5 +134,4 @@ def train(**kwargs):
 # one epoch ranges from 8:27-8:34 for the original implementation.
 if __name__ == '__main__':
     import fire
-
     fire.Fire()
