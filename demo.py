@@ -14,7 +14,7 @@ from utils import array_tool as at
 if __name__ == '__main__':
     faster_rcnn = FasterRCNNVGG16()
     trainer = FasterRCNNTrainer(faster_rcnn).cuda()
-    trainer.load('checkpoints-full-fasterrcnn/fasterrcnn_epoch_best_best_map_0.3092034614074795')
+    trainer.load('checkpoints-increased-anchors/fasterrcnn_epoch_best_best_map_0.30656054965616425')
     opt.caffe_pretrain = False
     ids = [d.name.split(".")[0] for d in os.scandir("datasets/webis-webseg-20/webis-webseg-20-screenshots") if
            int(d.name.split(".")[0]) > 9487]
@@ -54,7 +54,8 @@ if __name__ == '__main__':
                 mmdetection_bboxes=bbox_polygon_list,
             ),
         )
-        with open(f"inferences/full-faster-rcnn/screenshots/{img_id}.json", "w") as handle:
+        with open(f"inference_out/screenshots-increased-anchors/original_inferences/{img_id}.json", "w") as handle:
             json.dump(out_obj, handle)
-    # The average inference time is 0.07870027973753581
+    # The average inference time is 0.07870027973753581 for full faster rcnn
+    # The average inference time is 0.07848916178066019 for increased anchor count.
     print(f"The average inference time is {sum(inference_times) / len(inference_times)}")
