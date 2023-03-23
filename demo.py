@@ -54,7 +54,7 @@ if __name__ == '__main__':
                 mmdetection_bboxes=bbox_polygon_list,
             ),
         )
-        with open(f"inferences/full-faster-rcnn/screenshots/{img_id}.json", "w") as handle:
+        with open(f"inference_out/screenshots/original_inferences/{img_id}.json", "w") as handle:
             json.dump(out_obj, handle)
     # The average inference time is 0.07870027973753581
     print(f"The average inference time is {sum(inference_times) / len(inference_times)}")
