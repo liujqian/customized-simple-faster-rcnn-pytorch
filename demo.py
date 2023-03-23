@@ -14,7 +14,7 @@ from utils import array_tool as at
 if __name__ == '__main__':
     faster_rcnn = FasterRCNNVGG16()
     trainer = FasterRCNNTrainer(faster_rcnn).cuda()
-    trainer.load('checkpoints-increased-anchors/fasterrcnn_epoch_best_best_map_0.30656054965616425')
+    trainer.load('checkpoints-increased-anchor/fasterrcnn_epoch_best_best_map_0.3161344021337369')
     opt.caffe_pretrain = False
     ids = [d.name.split(".")[0] for d in os.scandir("datasets/webis-webseg-20/webis-webseg-20-screenshots") if
            int(d.name.split(".")[0]) > 9487]
